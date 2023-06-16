@@ -6,7 +6,8 @@ module "vm_extension_monitoring_agent" {
   # source  = "aztfmod/caf/azurerm//modules/compute/virtual_machine_extensions"
   # version = "5.5.5"
 
-  source = "git::https://github.com/aztfmod/terraform-azurerm-caf.git//modules/compute/virtual_machine_extensions?ref=main"
+  # source = "git::https://github.com/aztfmod/terraform-azurerm-caf.git//modules/compute/virtual_machine_extensions?ref=main"
+  source = "/tf/caf/terraform-azurerm-caf/modules/compute/virtual_machine_extensions"
 
   depends_on = [module.solution]
 
