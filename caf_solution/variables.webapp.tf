@@ -26,4 +26,4 @@ variable "function_apps" {
 }
 variable "static_sites" {
   default = {}
-}
+} #CLDSVC-v0.1.0-5.5.5-a#

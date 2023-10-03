@@ -205,6 +205,9 @@ locals {
     servicebus_queues = {
       for key, value in try(var.landingzone.tfstates, {}) : key => merge(try(data.terraform_remote_state.remote[key].outputs.objects[key].servicebus_queues, {}))
     }
+    static_sites = {
+      for key, value in try(var.landingzone.tfstates, {}) : key => merge(try(data.terraform_remote_state.remote[key].outputs.objects[key].static_sites, {}))
+    } #CLDSVC-v0.1.0-5.5.5-a#
     storage_accounts = {
       for key, value in try(var.landingzone.tfstates, {}) : key => merge(try(data.terraform_remote_state.remote[key].outputs.objects[key].storage_accounts, {}))
     }
@@ -258,9 +261,6 @@ locals {
     }
     wvd_workspaces = {
       for key, value in try(var.landingzone.tfstates, {}) : key => merge(try(data.terraform_remote_state.remote[key].outputs.objects[key].wvd_workspaces, {}))
-    }
-    static_sites = {
-      for key, value in try(var.landingzone.tfstates, {}) : key => merge(try(data.terraform_remote_state.remote[key].outputs.objects[key].static_sites, {}))
     }
   }
 
