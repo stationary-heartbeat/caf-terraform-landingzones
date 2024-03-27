@@ -254,3 +254,6 @@ variable "network_profiles" {
   default = {}
 }
 
+variable "data_sources" {
+  default = {}
+}
