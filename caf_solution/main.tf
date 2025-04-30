@@ -22,6 +22,10 @@ terraform {
       source  = "aztfmod/azurecaf"
       version = "~> 1.2.0"
     }
+    local = {
+      source = "hashicorp/local"
+      version = "~> 2.5.2"
+    }
   }
   required_version = ">= 0.15"
 }
