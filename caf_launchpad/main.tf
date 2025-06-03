@@ -4,7 +4,7 @@ terraform {
     // azuread version driven by the caf module
     random = {
       source  = "hashicorp/random"
-      version = "~> 3.3.0"
+      version = "~> 3.5.0"
     }
     external = {
       source  = "hashicorp/external"
@@ -23,7 +23,7 @@ terraform {
       version = "~> 1.2.0"
     }
   }
-  required_version = ">= 0.15"
+  required_version = ">= 1.3.5"
 }
 
 
@@ -32,7 +32,7 @@ provider "azurerm" {
   partner_id = "ca4078f8-9bc4-471b-ab5b-3af6b86a42c8"
   features {
     api_management {
-      purge_soft_delete_on_destroy         = var.provider_azurerm_features_api_management.purge_soft_delete_on_destroy
+      purge_soft_delete_on_destroy = try(var.provider_azurerm_features_api_management.purge_soft_delete_on_destroy, null)
       # recover_soft_deleted_api_managements = var.provider_azurerm_features_api_management.recover_soft_deleted_api_managements
     }
     # application_insights {
@@ -73,6 +73,14 @@ provider "azurerm" {
   }
 }
 
+provider "azurerm" {
+  alias                      = "vhub"
+  skip_provider_registration = true
+  features {}
+  subscription_id = local.connectivity_subscription_id
+  tenant_id       = local.connectivity_tenant_id
+}
+
 provider "azuread" {
   partner_id = "ca4078f8-9bc4-471b-ab5b-3af6b86a42c8"
 }
@@ -83,7 +91,7 @@ resource "random_string" "prefix" {
   length  = 4
   special = false
   upper   = false
-  number  = false
+  numeric = false
 }
 
 locals {
@@ -91,7 +99,7 @@ locals {
     "landingzone" = var.landingzone.key
   }
 
-  tags = merge(local.global_settings.tags, local.landingzone_tag, { "level" = var.landingzone.level }, { "environment" = local.global_settings.environment }, { "rover_version" = var.rover_version }, var.tags)
+  tags = merge(local.global_settings.tags, local.landingzone_tag, { "caf_environment" = local.global_settings.environment }, { "rover_version" = var.rover_version }, var.tags)
 
   global_settings = {
     default_region     = var.default_region

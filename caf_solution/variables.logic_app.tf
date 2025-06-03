@@ -13,6 +13,9 @@ variable "logic_app_action_http" {
 variable "logic_app_integration_account" {
   default = {}
 }
+variable "logic_app_standard" {
+  default = {}
+}
 variable "logic_app_trigger_custom" {
   default = {}
 }
